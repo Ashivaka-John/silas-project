@@ -1,45 +1,146 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
-    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-      crossorigin="anonymous"
     />
-
-    <!-- Custom Css -->
     <link rel="stylesheet" href="style.css" type="text/css" />
-
-    <!-- Ionic icons -->
     <link
       href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css"
       rel="stylesheet"
     />
-
-    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
       rel="stylesheet"
     />
-
     <title>silas</title>
-    <script>
-      window.onload = function () {
-        if (localStorage.getItem("authenticated") !== "true") {
-          alert("You must log in first.");
-          window.location.href = "login.html"; // Redirect to login page
-        }
-      };
+
+    <!-- Google Charts -->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script type="text/javascript">
+      google.charts.load("current", { packages: ["gantt"] });
+
+      function drawChart(chartId) {
+        var data = new google.visualization.DataTable();
+        data.addColumn("string", "Task ID");
+        data.addColumn("string", "Task Name");
+        data.addColumn("string", "Resource");
+        data.addColumn("date", "Start Date");
+        data.addColumn("date", "End Date");
+        data.addColumn("number", "Duration");
+        data.addColumn("number", "Percent Complete");
+        data.addColumn("string", "Dependencies");
+
+        data.addRows([
+          [
+            "Task1",
+            "Research",
+            "Research Team",
+            new Date(2023, 0, 1),
+            new Date(2023, 1, 1),
+            null,
+            100,
+            null,
+          ],
+          [
+            "Task2",
+            "Development",
+            "Development Team",
+            new Date(2023, 1, 2),
+            new Date(2023, 3, 15),
+            null,
+            50,
+            "Task1",
+          ],
+          [
+            "Task3",
+            "Testing",
+            "QA Team",
+            new Date(2023, 3, 16),
+            new Date(2023, 5, 1),
+            null,
+            25,
+            "Task2",
+          ],
+          [
+            "Task4",
+            "Launch",
+            "Operations Team",
+            new Date(2023, 5, 2),
+            new Date(2023, 6, 30),
+            null,
+            0,
+            "Task3",
+          ],
+        ]);
+
+        var options = {
+          height: 400,
+          gantt: {
+            trackHeight: 30,
+          },
+        };
+
+        var chart = new google.visualization.Gantt(
+          document.getElementById(chartId)
+        );
+        chart.draw(data, options);
+      }
+
+      function openGanttChart(chartId) {
+        drawChart(chartId);
+        document.getElementById("ganttModal").style.display = "block";
+      }
+
+      function closeGanttModal() {
+        document.getElementById("ganttModal").style.display = "none";
+      }
     </script>
+
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 60px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
@@ -92,17 +193,23 @@
         <div class="title-block">
           <h2>Focal Areas</h2>
           <p>
-            We have nine focal areas to focus on on this reaserch which has been
-            linked on gantt charts on the links below.
+            We have nine focal areas to focus on in this research, which are
+            linked to Gantt charts on the links below.
           </p>
         </div>
         <div class="row">
+          <!-- Original Buttons -->
           <div class="col-md-4">
             <div class="pricing-box">
               <h3 class="demo">Demo Version</h3>
               <div class="divider-light"></div>
               <div class="text-center">
-                <a href="#" class="btn btn-demo">Demo version</a>
+                <a
+                  href="#"
+                  class="btn btn-demo"
+                  onclick="openGanttChart('ganttChart1')"
+                  >View Gantt Chart 1</a
+                >
               </div>
             </div>
           </div>
@@ -111,7 +218,12 @@
               <h3>Demo version</h3>
               <div class="divider-light"></div>
               <div class="text-center">
-                <a href="#" class="btn btn-buy">Demo version</a>
+                <a
+                  href="#"
+                  class="btn btn-buy"
+                  onclick="openGanttChart('ganttChart2')"
+                  >View Gantt Chart 2</a
+                >
               </div>
             </div>
           </div>
@@ -120,62 +232,12 @@
               <h3>Demo version</h3>
               <div class="divider-light"></div>
               <div class="text-center">
-                <a href="#" class="btn btn-buy">Demo version</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="pricing-box">
-              <h3 class="demo">Demo Version</h3>
-              <div class="divider-light"></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-demo">Demo version</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="pricing-box">
-              <h3>Demo version</h3>
-              <div class="divider-light"></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-buy">Demo version</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="pricing-box">
-              <h3>Demo version</h3>
-              <div class="divider-light"></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-buy">Demo version</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="pricing-box">
-              <h3 class="demo">Demo Version</h3>
-              <div class="divider-light"></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-demo">Demo version</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="pricing-box">
-              <h3>Demo version</h3>
-              <div class="divider-light"></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-buy">Demo version</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="pricing-box">
-              <h3>Demo version</h3>
-              <div class="divider-light"></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-buy">Demo version</a>
+                <a
+                  href="#"
+                  class="btn btn-buy"
+                  onclick="openGanttChart('ganttChart3')"
+                  >View Gantt Chart 3</a
+                >
               </div>
             </div>
           </div>
@@ -184,29 +246,19 @@
     </section>
     <!-- E N D  P R I C I N G -->
 
-    <script>
-      function logout() {
-        localStorage.removeItem("authenticated");
-        window.location.href = "login.html"; // Redirect to login page
-      }
-    </script>
+    <!-- Modal for Gantt Chart -->
+    <div id="ganttModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeGanttModal()">&times;</span>
+        <div id="ganttChart1" style="width: 100%; height: 400px"></div>
+        <div id="ganttChart2" style="width: 100%; height: 400px"></div>
+        <div id="ganttChart3" style="width: 100%; height: 400px"></div>
+      </div>
+    </div>
 
     <!-- External JavaScripts -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-      integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   </body>
 </html>
