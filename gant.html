@@ -85,13 +85,14 @@
 
         var options = {
           height: 400,
+          width: "100%",
           gantt: {
             trackHeight: 30,
           },
         };
 
         var chart = new google.visualization.Gantt(
-          document.getElementById(chartId)
+          document.getElementById("ganttChartContainer")
         );
         chart.draw(data, options);
       }
@@ -103,6 +104,7 @@
 
       function closeGanttModal() {
         document.getElementById("ganttModal").style.display = "none";
+        document.getElementById("ganttChartContainer").innerHTML = ""; // Clear the chart
       }
     </script>
 
@@ -125,6 +127,10 @@
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .close {
@@ -132,6 +138,7 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
+        margin-bottom: 10px;
       }
 
       .close:hover,
@@ -139,6 +146,11 @@
         color: black;
         text-decoration: none;
         cursor: pointer;
+      }
+
+      .gantt-container {
+        width: 100%;
+        height: 400px;
       }
     </style>
   </head>
@@ -198,10 +210,10 @@
           </p>
         </div>
         <div class="row">
-          <!-- Original Buttons -->
+          <!-- Gantt Chart Buttons -->
           <div class="col-md-4">
             <div class="pricing-box">
-              <h3 class="demo">Demo Version</h3>
+              <h3 class="demo">Demo Version 1</h3>
               <div class="divider-light"></div>
               <div class="text-center">
                 <a
@@ -215,7 +227,7 @@
           </div>
           <div class="col-md-4">
             <div class="pricing-box">
-              <h3>Demo version</h3>
+              <h3>Demo version 2</h3>
               <div class="divider-light"></div>
               <div class="text-center">
                 <a
@@ -229,7 +241,7 @@
           </div>
           <div class="col-md-4">
             <div class="pricing-box">
-              <h3>Demo version</h3>
+              <h3>Demo version 3</h3>
               <div class="divider-light"></div>
               <div class="text-center">
                 <a
@@ -237,6 +249,90 @@
                   class="btn btn-buy"
                   onclick="openGanttChart('ganttChart3')"
                   >View Gantt Chart 3</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-box">
+              <h3>Demo version 4</h3>
+              <div class="divider-light"></div>
+              <div class="text-center">
+                <a
+                  href="#"
+                  class="btn btn-demo"
+                  onclick="openGanttChart('ganttChart4')"
+                  >View Gantt Chart 4</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-box">
+              <h3>Demo version 5</h3>
+              <div class="divider-light"></div>
+              <div class="text-center">
+                <a
+                  href="#"
+                  class="btn btn-buy"
+                  onclick="openGanttChart('ganttChart5')"
+                  >View Gantt Chart 5</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-box">
+              <h3>Demo version 6</h3>
+              <div class="divider-light"></div>
+              <div class="text-center">
+                <a
+                  href="#"
+                  class="btn btn-buy"
+                  onclick="openGanttChart('ganttChart6')"
+                  >View Gantt Chart 6</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-box">
+              <h3>Demo version 7</h3>
+              <div class="divider-light"></div>
+              <div class="text-center">
+                <a
+                  href="#"
+                  class="btn btn-demo"
+                  onclick="openGanttChart('ganttChart7')"
+                  >View Gantt Chart 7</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-box">
+              <h3>Demo version 8</h3>
+              <div class="divider-light"></div>
+              <div class="text-center">
+                <a
+                  href="#"
+                  class="btn btn-buy"
+                  onclick="openGanttChart('ganttChart8')"
+                  >View Gantt Chart 8</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="pricing-box">
+              <h3>Demo version 9</h3>
+              <div class="divider-light"></div>
+              <div class="text-center">
+                <a
+                  href="#"
+                  class="btn btn-buy"
+                  onclick="openGanttChart('ganttChart9')"
+                  >View Gantt Chart 9</a
                 >
               </div>
             </div>
@@ -250,9 +346,7 @@
     <div id="ganttModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeGanttModal()">&times;</span>
-        <div id="ganttChart1" style="width: 100%; height: 400px"></div>
-        <div id="ganttChart2" style="width: 100%; height: 400px"></div>
-        <div id="ganttChart3" style="width: 100%; height: 400px"></div>
+        <div id="ganttChartContainer" class="gantt-container"></div>
       </div>
     </div>
 
